@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Javier Jairo - Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+   }
+
+    body {
+      background: linear-gradient(135deg, #0f0f16 0%, #1a0b2e 50%, #16213e 100%);
+      background-attachment: fixed;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Botão hambúrguer melhorado */
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 1.8rem;
+      background: rgba(123, 31, 162, 0.2);
+      border: 2px solid #7b1fa2;
+      color: #fff;
+      z-index: 1001;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .menu-toggle:hover {
+      background: rgba(123, 31, 162, 0.4);
+      transform: scale(1.05);
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      min-height: 100vh;
+    }
+
+    /* Sidebar melhorada */
+    .sidebar {
+      width: 90px;
+      background: linear-gradient(180deg, #000 0%, #1a0b2e 100%);
+      border-right: 1px solid rgba(123, 31, 162, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 30px;
+      position: fixed;
+      height: 100vh;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      box-shadow: 2px 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .sidebar .logo {
+      background: linear-gradient(45deg, #7b1fa2, #9c27b0);
+      color: #fff;
+      font-size: 28px;
+      font-weight: 700;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin-bottom: 40px;
+      box-shadow: 0 8px 25px rgba(123, 31, 162, 0.4);
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 8px 25px rgba(123, 31, 162, 0.4); }
+      50% { box-shadow: 0 8px 35px rgba(123, 31, 162, 0.6); }
+    }
+
+    .sidebar .logo:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      width: 100%;
+    }
+
+    .sidebar nav a {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+      font-weight: 400;
+      padding: 15px 5px;
+      transition: all 0.3s ease;
+      position: relative;
+      border-radius: 4px;
+    }
+
+    .sidebar nav a:hover {
+      color: #7b1fa2;
+      transform: rotate(180deg) translateX(-5px);
+      background: rgba(123, 31, 162, 0.1);
+    }
+
+    .sidebar nav a::before {
+      content: '';
+      position: absolute;
+      left: -2px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 0;
+      background: #7b1fa2;
+      transition: height 0.3s ease;
+    }
+
+    .sidebar nav a:hover::before {
+      height: 80%;
+    }
+
+    /* Conteúdo principal melhorado */
+    .main {
+      margin-left: 90px;
+      padding: 60px 50px;
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 40px;
+      animation: fadeInUp 1s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .main .text {
+      max-width: 650px;
+      flex: 1 1 400px;
+    }
+
+    .main h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 15px;
+      background: linear-gradient(45deg, #fff, #7b1fa2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+      line-height: 1.2;
+      animation: slideInLeft 1s ease;
+    }
+
+    .main h2 {
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+      color: #bbb;
+      font-weight: 400;
+      margin-bottom: 25px;
+      animation: slideInLeft 1s ease 0.2s both;
+    }
+
+    .main p {
+      margin-top: 0;
+      margin-bottom: 35px;
+      color: #ccc;
+      line-height: 1.6;
+      font-size: 1.1rem;
+      animation: slideInLeft 1s ease 0.4s both;
+    }
+
+    .main .btn {
+      background: linear-gradient(45deg, #7b1fa2, #9c27b0);
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 50px;
+      margin-top: 0;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(123, 31, 162, 0.3);
+      position: relative;
+      overflow: hidden;
+      animation: slideInLeft 1s ease 0.6s both;
+    }
+
+    .main .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .main .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(123, 31, 162, 0.5);
+    }
+
+    .main .btn:hover::before {
+      left: 100%;
+    }
+
+    .main .btn:active {
+      transform: translateY(-1px);
+    }
+
+    .link_botao {
+      text-decoration: none;
+      color: white;
+      display: block;
+    }
+
+    .contact-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+      animation: slideInLeft 1s ease 0.8s both;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      border: 1px solid rgba(123, 31, 162, 0.2);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .contact-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(123, 31, 162, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .contact-item strong {
+      font-size: 14px;
+      color: #7b1fa2;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .contact-item span {
+      font-size: 16px;
+      color: #fff;
+      font-weight: 400;
+    }
+
+    .profile-img {
+      max-width: 450px;
+      flex: 1 1 350px;
+      animation: slideInRight 1s ease;
+    }
+
+    .profile-img img {
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+      border: 3px solid rgba(123, 31, 162, 0.3);
+      transition: all 0.3s ease;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .profile-img img:hover {
+      transform: scale(1.02);
+      border-color: rgba(123, 31, 162, 0.6);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Overlay para mobile */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 999;
+      backdrop-filter: blur(5px);
+    }
+
+    /* RESPONSIVO MELHORADO */
+    @media (max-width: 1024px) {
+      .main {
+        padding: 40px 30px;
+        gap: 30px;
+      }
+      
+      .contact-info {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .overlay.active {
+        display: block;
+      }
+
+      .container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+        width: 250px;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: linear-gradient(180deg, #000 0%, #1a0b2e 100%);
+        padding: 80px 20px 20px;
+        transition: transform 0.3s ease-in-out;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .sidebar .logo {
+        align-self: center;
+        margin-bottom: 50px;
+      }
+
+      .sidebar nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        width: 100%;
+      }
+
+      .sidebar nav a {
+        writing-mode: initial;
+        transform: none;
+        font-size: 18px;
+        padding: 12px 20px;
+        width: 100%;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .sidebar nav a:hover {
+        transform: translateX(10px);
+        background: rgba(123, 31, 162, 0.2);
+      }
+
+      .sidebar nav a::before {
+        left: 0;
+        top: 0;
+        width: 0;
+        height: 100%;
+        transition: width 0.3s ease;
+      }
+
+      .sidebar nav a:hover::before {
+        width: 4px;
+        height: 100%;
+      }
+
+      .main {
+        margin-left: 0;
+        padding: 30px 20px;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .contact-info {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin-top: 30px;
+      }
+
+      .contact-item {
+        padding: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main {
+        padding: 20px 15px;
+      }
+
+      .main h1 {
+        font-size: 2rem;
+      }
+
+      .main h2 {
+        font-size: 1.1rem;
+      }
+
+      .main p {
+        font-size: 1rem;
+      }
+
+      .main .btn {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+
+      .sidebar {
+        width: 100%;
+        padding: 60px 15px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Botão hambúrguer -->
+  <button class="menu-toggle" aria-label="Abrir menu">☰</button>
+
+  <!-- Overlay para mobile -->
+  <div class="overlay"></div>
+
+  <div class="container">
+    <div class="sidebar">
+      <div class="logo">J</div>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#sobre">About</a>
+        <a href="#habilidades">Skills</a>
+        <a href="#trabalho">Work</a>
+        <a href="#servicos">Services</a>
+        <a href="#contato">Contact</a>
+      </nav>
+    </div>
+
+    <div class="main">
+      <div class="text">
+        <h1>Olá, eu sou o Javier</h1>
+        <h2>Desenvolvedor Full Stack</h2>
+        <p>Crio sites e aplicativos que unem design criativo, tecnologia de ponta e alta performance para entregar resultados reais ao seu negócio.</p>
+        <button class="btn">
+          <a class="link_botao" href="https://github.com/jairo-javier" target="_blank" rel="noopener">Mais sobre mim</a>
+        </button>
+        <div class="contact-info">
+          <div class="contact-item">
+            <strong>GitHub</strong>
+            <span>Jairo-Javier</span>
+          </div>
+          <div class="contact-item">
+            <strong>WhatsApp</strong>
+            <span>85 985884965</span>
+          </div>
+          <div class="contact-item">
+            <strong>Email</strong>
+            <span>jairojavier404@gmail.com</span>
+          </div>
+        </div>
+      </div>
+      <div class="profile-img">
+        <img src="img/git hub foto.jpeg" alt="Foto do Javier - Desenvolvedor Full Stack" />
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggle = document.querySelector(".menu-toggle");
+    const sidebar = document.querySelector(".sidebar");
+    const overlay = document.querySelector(".overlay");
+    const navLinks = document.querySelectorAll(".sidebar nav a");
+
+    function toggleMenu() {
+      sidebar.classList.toggle("active");
+      overlay.classList.toggle("active");
+      document.body.style.overflow = sidebar.classList.contains("active") ? 'hidden' : 'auto';
+    }
+
+    function closeMenu() {
+      sidebar.classList.remove("active");
+      overlay.classList.remove("active");
+      document.body.style.overflow = 'auto';
+    }
+
+    // Event listeners
+    toggle.addEventListener("click", toggleMenu);
+    overlay.addEventListener("click", closeMenu);
+
+    // Fechar menu ao clicar em qualquer link
+    navLinks.forEach(link => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    // Fechar menu com ESC
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && sidebar.classList.contains("active")) {
+        closeMenu();
+      }
+    });
+
+    // Fechar menu ao redimensionar para desktop
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 768) {
+        closeMenu();
+      }
+    });
+
+    // Smooth scroll para links internos
+    navLinks.forEach(link => {
+      link.addEventListener("click", (e) => {
+        const href = link.getAttribute("href");
+        if (href.startsWith("#")) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth" });
+          }
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
